@@ -1,0 +1,13 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl Fruit
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.180000 0.180000 0.180000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\Fruit_v1_L3.123caa690c97-b26a-4b94-8425-0c54882b8a87\\Fruit_diffuse.jpg

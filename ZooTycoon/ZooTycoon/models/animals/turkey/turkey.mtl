@@ -1,0 +1,14 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl wild_turkey_male
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Bump D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\wild_turkey_male_v2_L2.123c4c2732a4-096a-434a-b9b4-205c9df65031\\wild_turkey_male_bump_v2.jpg
+map_Kd D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\wild_turkey_male_v2_L2.123c4c2732a4-096a-434a-b9b4-205c9df65031\\wild_turkey_male_diffuse_v2.jpg

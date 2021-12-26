@@ -11,6 +11,7 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 #include "Model3D.hpp"
+#include "SkyBox.hpp"
 
 #include <iostream>
 
@@ -37,7 +38,7 @@ GLint lightColorLoc;
 
 // camera
 gps::Camera myCamera(
-    glm::vec3(0.0f, 0.0f, 3.0f),
+    glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 0.0f, -10.0f),
     glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -47,10 +48,33 @@ GLboolean pressedKeys[1024];
 
 // models
 gps::Model3D teapot;
+gps::Model3D bear;
+gps::Model3D bearCage;
+gps::Model3D ibex;
+gps::Model3D ibexCage;
+gps::Model3D deer;
+gps::Model3D deerCage;
+gps::Model3D moose;
+gps::Model3D mooseCage;
+gps::Model3D muskDeer;
+gps::Model3D muskDeerCage;
+gps::Model3D sheep;
+gps::Model3D sheepCage;
+gps::Model3D otter;
+gps::Model3D otterCage;
+gps::Model3D monkey;
+gps::Model3D monkeyCage;
+gps::Model3D koala;
+gps::Model3D koalaCage;
 GLfloat angle;
 
 // shaders
 gps::Shader myBasicShader;
+
+std::vector<const GLchar*> faces;
+
+gps::SkyBox mySkyBox;
+gps::Shader skyboxShader;
 
 GLenum glCheckError_(const char *file, int line)
 {
@@ -224,6 +248,24 @@ void initOpenGLState() {
 
 void initModels() {
     teapot.LoadModel("models/teapot/teapot20segUT.obj");
+    bear.LoadModel("models/animals/bear/bear.obj");
+    bearCage.LoadModel("models/fences/fence2/fence2.obj");
+    ibex.LoadModel("models/animals/ibex/ibex.obj");
+    ibexCage.LoadModel("models/fences/fence1/fence1.obj");
+    deer.LoadModel("models/animals/deer/deer.obj");
+    deerCage.LoadModel("models/fences/fence1/fence1.obj");
+    moose.LoadModel("models/animals/moose/moose.obj");
+    mooseCage.LoadModel("models/fences/fence2/fence2.obj");
+    muskDeer.LoadModel("models/animals/musk_deer/musk_deer.obj");
+    muskDeerCage.LoadModel("models/fences/fence1/fence1.obj");
+    sheep.LoadModel("models/animals/sheep/sheep.obj");
+    sheepCage.LoadModel("models/fences/fence1/fence1.obj");
+    otter.LoadModel("models/animals/otter/otter.obj");
+    otterCage.LoadModel("models/fences/fence1/fence1.obj");
+    monkey.LoadModel("models/animals/monkey/monkey.obj");
+    monkeyCage.LoadModel("models/fences/fence1/fence1.obj");
+    koala.LoadModel("models/animals/koala/koala.obj");
+    koalaCage.LoadModel("models/fences/fence1/fence1.obj");
 }
 
 void initShaders() {
@@ -252,7 +294,7 @@ void initUniforms() {
 	// create projection matrix
 	projection = glm::perspective(glm::radians(45.0f),
                                (float)myWindow.getWindowDimensions().width / (float)myWindow.getWindowDimensions().height,
-                               0.1f, 20.0f);
+                               0.1f, 40.0f);
 	projectionLoc = glGetUniformLocation(myBasicShader.shaderProgram, "projection");
 	// send projection matrix to shader
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));	
@@ -274,6 +316,9 @@ void renderTeapot(gps::Shader shader) {
     // select active shader program
     shader.useShaderProgram();
 
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 0));
+
     //send teapot model matrix data to shader
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -284,6 +329,258 @@ void renderTeapot(gps::Shader shader) {
     teapot.Draw(shader);
 }
 
+void renderBear(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, 15));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+    
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    bear.Draw(shader);
+}
+
+void renderBearCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, 15));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    bearCage.Draw(shader);
+}
+
+void renderIbex(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, -5));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    ibex.Draw(shader);
+}
+
+void renderIbexCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, -5));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    ibexCage.Draw(shader);
+}
+
+void renderDeer(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, -5));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    deer.Draw(shader);
+}
+
+void renderDeerCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, -5));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    deerCage.Draw(shader);
+}
+
+void renderMoose(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, -10));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    moose.Draw(shader);
+}
+
+void renderMooseCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, -10));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    mooseCage.Draw(shader);
+}
+
+void renderMuskDeer(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0, 0, -10));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    muskDeer.Draw(shader);
+}
+
+void renderMuskDeerCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0, 0, -10));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    muskDeerCage.Draw(shader);
+}
+
+void renderSheep(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, -10));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    sheep.Draw(shader);
+}
+
+void renderSheepCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, -10));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    sheepCage.Draw(shader);
+}
+
+void renderOtter(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, 5));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    otter.Draw(shader);
+}
+
+void renderOtterCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, 5));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    otterCage.Draw(shader);
+}
+
+void renderMonkey(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0, 0, 10));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    monkey.Draw(shader);
+}
+
+void renderMonkeyCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0, 0, 10));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    monkeyCage.Draw(shader);
+}
+
+void renderKoala(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 10));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    koala.Draw(shader);
+}
+
+void renderKoalaCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 10));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    koalaCage.Draw(shader);
+}
+
 void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -291,6 +588,26 @@ void renderScene() {
 
 	// render the teapot
 	renderTeapot(myBasicShader);
+    renderBear(myBasicShader);
+    renderBearCage(myBasicShader);
+    renderIbex(myBasicShader);
+    renderIbexCage(myBasicShader);
+    renderMoose(myBasicShader);
+    renderMooseCage(myBasicShader);
+    renderMuskDeer(myBasicShader);
+    renderMuskDeerCage(myBasicShader);
+    renderSheep(myBasicShader);
+    renderSheepCage(myBasicShader);
+    renderDeer(myBasicShader);
+    renderDeerCage(myBasicShader);
+    renderOtter(myBasicShader);
+    renderOtterCage(myBasicShader);
+    renderMonkey(myBasicShader);
+    renderMonkeyCage(myBasicShader);
+    renderKoala(myBasicShader);
+    renderKoalaCage(myBasicShader);
+
+    mySkyBox.Draw(skyboxShader, view, projection);
 
 }
 
@@ -300,7 +617,12 @@ void cleanup() {
 }
 
 int main(int argc, const char * argv[]) {
-
+    faces.push_back("skybox/posx.jpg");
+    faces.push_back("skybox/negx.jpg");
+    faces.push_back("skybox/posy.jpg");
+    faces.push_back("skybox/negy.jpg");
+    faces.push_back("skybox/posz.jpg");
+    faces.push_back("skybox/negz.jpg");
     try {
         initOpenGLWindow();
     } catch (const std::exception& e) {
@@ -313,6 +635,16 @@ int main(int argc, const char * argv[]) {
 	initShaders();
 	initUniforms();
     setWindowCallbacks();
+    mySkyBox.Load(faces);
+    skyboxShader.loadShader("shaders/skyboxShader.vert", "shaders/skyboxShader.frag");
+    skyboxShader.useShaderProgram();
+    view = myCamera.getViewMatrix();
+    glUniformMatrix4fv(glGetUniformLocation(skyboxShader.shaderProgram, "view"), 1, GL_FALSE,
+        glm::value_ptr(view));
+
+    projection = glm::perspective(glm::radians(45.0f), (float)myWindow.getWindowDimensions().width / (float)myWindow.getWindowDimensions().height, 0.1f, 1000.0f);
+    glUniformMatrix4fv(glGetUniformLocation(skyboxShader.shaderProgram, "projection"), 1, GL_FALSE,
+        glm::value_ptr(projection));
 
 	glCheckError();
 

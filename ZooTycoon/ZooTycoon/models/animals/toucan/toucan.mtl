@@ -1,0 +1,14 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl 12260_Bird_Toucan
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Bump D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\Bird_Toucan_V3_L2.123cee619569-a110-43e5-9146-71ccb3fba05e\\12260_Bird_Toucan_Bump.jpg
+map_Kd D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\Bird_Toucan_V3_L2.123cee619569-a110-43e5-9146-71ccb3fba05e\\12260_Bird_Toucan_Diffuse.jpg

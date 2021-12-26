@@ -1,0 +1,13 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl Tibetan_Hill_Fox
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.090000 0.090000 0.090000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\Tibetan_Hill_Fox_v1_L3.123c94d7b368-6d9d-4582-8c5a-201ab6fd8e96\\Tibetan_Hill_Fox_dif.jpg

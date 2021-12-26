@@ -1,0 +1,13 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl 13103_pearlturtle_body
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd D:\\documente scoala\\Facultate\\Anul 3\\GP\\modele\\0agood\\pearlturtle_v1_L2.123c8b254914-0c70-4cc6-bc03-8d58f36d90c5\\13103_pearlturtle_diffuse.jpg
