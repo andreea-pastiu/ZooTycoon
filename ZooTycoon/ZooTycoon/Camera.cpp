@@ -46,6 +46,7 @@ namespace gps {
                 }
             }
         }
+        cameraPosition.y = 0.3;
     }
 
     //update the camera internal parameters following a camera rotate event

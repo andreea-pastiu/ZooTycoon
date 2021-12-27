@@ -38,11 +38,11 @@ GLint lightColorLoc;
 
 // camera
 gps::Camera myCamera(
-    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 0.3f, 0.0f),
     glm::vec3(0.0f, 0.0f, -10.0f),
     glm::vec3(0.0f, 1.0f, 0.0f));
 
-GLfloat cameraSpeed = 0.1f;
+GLfloat cameraSpeed = 0.05f;
 
 GLboolean pressedKeys[1024];
 
@@ -66,6 +66,24 @@ gps::Model3D monkey;
 gps::Model3D monkeyCage;
 gps::Model3D koala;
 gps::Model3D koalaCage;
+gps::Model3D toucan;
+gps::Model3D toucanCage;
+gps::Model3D turkey;
+gps::Model3D turkeyCage;
+gps::Model3D turtle;
+gps::Model3D turtleCage;
+gps::Model3D seaTurtle;
+gps::Model3D seaTurtleCage;
+gps::Model3D penguin;
+gps::Model3D penguinCage;
+gps::Model3D bison;
+gps::Model3D bisonCage;
+gps::Model3D hyena;
+gps::Model3D hyenaCage;
+gps::Model3D wolf;
+gps::Model3D wolfCage;
+gps::Model3D fox;
+gps::Model3D foxCage;
 GLfloat angle;
 
 // shaders
@@ -266,6 +284,24 @@ void initModels() {
     monkeyCage.LoadModel("models/fences/fence1/fence1.obj");
     koala.LoadModel("models/animals/koala/koala.obj");
     koalaCage.LoadModel("models/fences/fence1/fence1.obj");
+    toucan.LoadModel("models/animals/toucan/toucan.obj");
+    toucanCage.LoadModel("models/fences/fence1/fence1.obj");
+    turkey.LoadModel("models/animals/turkey/turkey.obj");
+    turkeyCage.LoadModel("models/fences/fence1/fence1.obj");
+    turtle.LoadModel("models/animals/turtle/turtle.obj");
+    turtleCage.LoadModel("models/fences/fence1/fence1.obj");
+    seaTurtle.LoadModel("models/animals/sea_turtle/sea_turtle.obj");
+    seaTurtleCage.LoadModel("models/fences/fence1/fence1.obj");
+    penguin.LoadModel("models/animals/penguin/penguin.obj");
+    penguinCage.LoadModel("models/fences/fence1/fence1.obj");
+    bison.LoadModel("models/animals/bison/bison.obj");
+    bisonCage.LoadModel("models/fences/fence1/fence1.obj");
+    hyena.LoadModel("models/animals/hyena/hyena.obj");
+    hyenaCage.LoadModel("models/fences/fence1/fence1.obj");
+    wolf.LoadModel("models/animals/wolf/wolf.obj");
+    wolfCage.LoadModel("models/fences/fence1/fence1.obj");
+    fox.LoadModel("models/animals/fox/fox.obj");
+    foxCage.LoadModel("models/fences/fence1/fence1.obj");
 }
 
 void initShaders() {
@@ -581,6 +617,258 @@ void renderKoalaCage(gps::Shader shader) {
     koalaCage.Draw(shader);
 }
 
+void renderToucan(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, -4));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    toucan.Draw(shader);
+}
+
+void renderToucanCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, -4));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    toucanCage.Draw(shader);
+}
+
+void renderTurkey(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, -2));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    turkey.Draw(shader);
+}
+
+void renderTurkeyCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, -2));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    turkeyCage.Draw(shader);
+}
+
+void renderPenguin(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 0));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    penguin.Draw(shader);
+}
+
+void renderPenguinCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 0));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    penguinCage.Draw(shader);
+}
+
+void renderTurtle(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, 2));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    turtle.Draw(shader);
+}
+
+void renderTurtleCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(5, 0, 2));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    turtleCage.Draw(shader);
+}
+
+void renderSeaTurtle(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 4));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    seaTurtle.Draw(shader);
+}
+
+void renderSeaTurtleCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(10, 0, 4));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    seaTurtleCage.Draw(shader);
+}
+
+void renderBison(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, 0));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    bison.Draw(shader);
+}
+
+void renderBisonCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, 0));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    bisonCage.Draw(shader);
+}
+
+void renderHyena(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, -2));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    hyena.Draw(shader);
+}
+
+void renderHyenaCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, -2));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    hyenaCage.Draw(shader);
+}
+
+void renderWolf(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, 4));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    wolf.Draw(shader);
+}
+
+void renderWolfCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-10, 0, 4));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    wolfCage.Draw(shader);
+}
+
+void renderFox(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, 2));
+    model = glm::scale(model, glm::vec3(0.05, 0.05, 0.05));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    fox.Draw(shader);
+}
+
+void renderFoxCage(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-5, 0, 2));
+    model = glm::scale(model, glm::vec3(0.1, 0.05, 0.1));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    foxCage.Draw(shader);
+}
+
 void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -606,6 +894,24 @@ void renderScene() {
     renderMonkeyCage(myBasicShader);
     renderKoala(myBasicShader);
     renderKoalaCage(myBasicShader);
+    renderToucan(myBasicShader);
+    renderToucanCage(myBasicShader);
+    renderTurkey(myBasicShader);
+    renderTurkeyCage(myBasicShader);
+    renderPenguin(myBasicShader);
+    renderPenguinCage(myBasicShader);
+    renderTurtle(myBasicShader);
+    renderTurtleCage(myBasicShader);
+    renderSeaTurtle(myBasicShader);
+    renderSeaTurtleCage(myBasicShader);
+    renderBison(myBasicShader);
+    renderBisonCage(myBasicShader);
+    renderHyena(myBasicShader);
+    renderHyenaCage(myBasicShader);
+    renderWolf(myBasicShader);
+    renderWolfCage(myBasicShader);
+    renderFox(myBasicShader);
+    renderFoxCage(myBasicShader);
 
     mySkyBox.Draw(skyboxShader, view, projection);
 
