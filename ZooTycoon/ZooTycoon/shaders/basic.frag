@@ -19,10 +19,16 @@ uniform sampler2D specularTexture;
 
 //components
 vec3 ambient;
-float ambientStrength = 0.0002f;
+vec3 ambient2;
+float ambientStrength = 0.02f;
+float ambientStrength2 = 0.02f;
 vec3 diffuse;
+vec3 diffuse2;
 vec3 specular;
-float specularStrength = 0.0005f;
+vec3 specular2;
+float specularStrength = 0.05f;
+float specularStrength2 = 0.05f;
+vec3 lightPosEye = vec3(10.0f, 0.0f, -1.0f);
 
 void computeDirLight()
 {
@@ -48,12 +54,50 @@ void computeDirLight()
     specular = specularStrength * specCoeff * lightColor;
 }
 
+float constant = 1.0f;
+float linear = 0.07f;
+float quadratic = 0.017f;
+
+void CalcPointLight()
+{
+	vec4 fPosEye = view * model * vec4(fPosition, 1.0f);
+    vec3 lightPosEye = vec3(10.0f, 2.0f, -5.0f);
+	
+	//compute distance to light
+	float dist = length(lightPosEye - fPosEye.xyz);
+	//compute attenuation
+	float att = 1.0f / (constant + linear * dist + quadratic * (dist * dist));
+
+	//transform normal
+	vec3 normalEye = normalize(fNormal);	
+	
+	//compute light direction
+	vec3 lightDirN = normalize(lightPosEye - fPosEye.xyz);
+
+	//compute view direction
+	vec3 viewDirN = normalize(fPosEye.xyz);
+	
+	//compute half vector
+	vec3 halfVector = normalize(lightDirN + viewDirN);
+		
+	//compute ambient light
+	ambient2 = att * ambientStrength * lightColor;
+	//compute diffuse light
+	diffuse2 = att * max(dot(normalEye, lightDirN), 0.0f) * lightColor;
+	
+	//compute specular light
+	float specCoeff = pow(max(dot(normalEye, halfVector), 0.0f), 32);
+	specular2 = att * specularStrength * specCoeff * lightColor;
+} 
+
 void main() 
 {
     computeDirLight();
+    CalcPointLight();
 
     //compute final vertex color
     vec3 color = min((ambient + diffuse) * texture(diffuseTexture, fTexCoords).rgb + specular * texture(specularTexture, fTexCoords).rgb, 1.0f);
+    vec3 color2 = min((ambient2 + diffuse2) * texture(diffuseTexture, fTexCoords).rgb + specular2 * texture(specularTexture, fTexCoords).rgb, 1.0f);
 
-    fColor = vec4(color, 1.0f);
+    fColor = vec4(color + color2, 1.0f);
 }

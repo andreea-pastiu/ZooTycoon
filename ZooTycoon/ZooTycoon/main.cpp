@@ -84,6 +84,7 @@ gps::Model3D wolf;
 gps::Model3D wolfCage;
 gps::Model3D fox;
 gps::Model3D foxCage;
+gps::Model3D ground;
 GLfloat angle;
 
 // shaders
@@ -302,6 +303,7 @@ void initModels() {
     wolfCage.LoadModel("models/fences/fence1/fence1.obj");
     fox.LoadModel("models/animals/fox/fox.obj");
     foxCage.LoadModel("models/fences/fence1/fence1.obj");
+    ground.LoadModel("models/ground/ground.obj");
 }
 
 void initShaders() {
@@ -869,6 +871,19 @@ void renderFoxCage(gps::Shader shader) {
     foxCage.Draw(shader);
 }
 
+void renderGround(gps::Shader shader) {
+    shader.useShaderProgram();
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::scale(model, glm::vec3(0.2, 0.2, 0.2));
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+    ground.Draw(shader);
+}
+
 void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -912,6 +927,7 @@ void renderScene() {
     renderWolfCage(myBasicShader);
     renderFox(myBasicShader);
     renderFoxCage(myBasicShader);
+    renderGround(myBasicShader);
 
     mySkyBox.Draw(skyboxShader, view, projection);
 

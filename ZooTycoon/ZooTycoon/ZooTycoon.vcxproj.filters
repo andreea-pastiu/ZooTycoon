@@ -48,6 +48,8 @@
     <None Include="shaders\basic.vert" />
     <None Include="shaders\skyboxShader.frag" />
     <None Include="shaders\skyboxShader.vert" />
+    <None Include="shaders\pointing.frag" />
+    <None Include="shaders\pointing.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.hpp">
